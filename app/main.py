@@ -13,7 +13,13 @@ def main():
         command=input()
         if command == 'exit 0':
             break
-        sys.stdout.write(f"{command}: command not found\n")
+        if command.startswith('echo'):
+            parts=command.split(" ", 1)
+            echo_command=parts[0]
+            message = parts[1]
+            sys.stdout.write(f"{message}\n")
+        else:
+            sys.stdout.write(f"{command}: command not found\n")
         
 
 if __name__ == "__main__":
