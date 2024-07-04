@@ -18,6 +18,14 @@ def main():
             echo_command=parts[0]
             message = parts[1]
             sys.stdout.write(f"{message}\n")
+        elif command.startswith('type'):
+            parts=command.split(" ")
+            type_command = parts[0]
+            builtin_command = parts[1]
+            if builtin_command in ('echo', 'exit', 'type'):
+                sys.stdout.write(f"{builtin_command} is a shell builtin\n")
+            else:
+                sys.stdout.write(f"{builtin_command}: not found\n")
         else:
             sys.stdout.write(f"{command}: command not found\n")
         
