@@ -18,17 +18,17 @@ def main():
         sys.stdout.write("$ ")
         sys.stdout.flush()
         command=input()
-
+        
         if command == 'exit 0':
             break
-        
+        parts=command.split(" ")
         if command.startswith('echo'):
-            parts=command.split(" ", 1)
+            # parts=command.split(" ", 1)
             echo_command=parts[0]
-            message = parts[1]
+            message = " ".join(parts[1:])
             sys.stdout.write(f"{message}\n")
         elif command.startswith('type'):
-            parts=command.split(" ")
+            # parts=command.split(" ")
             type_command = parts[0]
             builtin_command = parts[1]
             if builtin_command in ('echo', 'exit', 'type'):
@@ -38,14 +38,9 @@ def main():
                 sys.stdout.write(f"{builtin_command} is {get_file(builtin_command)}\n")
             else:
                 sys.stdout.write(f"{builtin_command}: not found\n")
-        # elif command.startswith('PATH'):
-        #     paths, file_name=get_paths(comm=command)
-        #     for path in paths:
-        #         path_name = path + "/" + file_name
-        #         try:
-        #             os.popen(path_name)
-        #         except:
-        #             print("{path_name} file does not exist")
+        elif get_file(parts[0])!=[]:
+            os.system(command)
+            # sys.stdout.write(f"Hello {parts[-1]}! The secret code is {match.group(1)}")
         else:
             sys.stdout.write(f"{command}: command not found\n")
         
